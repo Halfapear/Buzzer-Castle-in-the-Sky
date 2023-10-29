@@ -1,8 +1,9 @@
 #include <REGX52.h>
-#include "Key.h"
-#include "Nixie.h"
-#include "Buzzer.h"
+//#include "Key.h"
+//#include "Nixie.h"
+//#include "Buzzer.h"
 #include "Delay.h"
+#include "Timer0.h"
 
 sbit Buzzer=P2^5;
 

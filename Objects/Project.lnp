@@ -1,8 +1,5 @@
 ".\Objects\STARTUP.obj",
 ".\Objects\main.obj",
-".\Objects\Buzzer.obj",
-".\Objects\Key.obj",
-".\Objects\Nixie.obj",
 ".\Objects\Delay.obj",
 ".\Objects\Timer0.obj" 
 TO ".\Objects\Project" 
