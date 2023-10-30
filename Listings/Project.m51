@@ -1,4 +1,4 @@
-BL51 BANKED LINKER/LOCATER V6.22                                                        10/30/2023  20:48:18  PAGE 1
+BL51 BANKED LINKER/LOCATER V6.22                                                        10/30/2023  20:58:24  PAGE 1
 
 
 BL51 BANKED LINKER/LOCATER V6.22, INVOKED BY:
@@ -15,6 +15,8 @@ INPUT MODULES INCLUDED:
   .\Objects\Delay.obj (DELAY)
   .\Objects\Timer0.obj (TIMER0)
   C:\KEIL_V5\C51\LIB\C51S.LIB (?C_INIT)
+  C:\KEIL_V5\C51\LIB\C51S.LIB (?C?IMUL)
+  C:\KEIL_V5\C51\LIB\C51S.LIB (?C?SLCMP)
 
 
 LINK MAP OF MODULE:  .\Objects\Project (?C_STARTUP)
@@ -25,41 +27,48 @@ LINK MAP OF MODULE:  .\Objects\Project (?C_STARTUP)
 
             * * * * * * *   D A T A   M E M O R Y   * * * * * * *
             REG     0000H     0008H     ABSOLUTE     "REG BANK 0"
-            DATA    0008H     004CH     UNIT         ?DT?MAIN
-            IDATA   0054H     0001H     UNIT         ?STACK
+            DATA    0008H     0002H     UNIT         ?DT?MAIN
+            DATA    000AH     0001H     UNIT         _DATA_GROUP_
+                    000BH     0015H                  *** GAP ***
+            BIT     0020H.0   0000H.2   UNIT         ?BI?MAIN
+                    0020H.2   0000H.6                *** GAP ***
+            IDATA   0021H     0001H     UNIT         ?STACK
 
             * * * * * * *   C O D E   M E M O R Y   * * * * * * *
             CODE    0000H     0003H     ABSOLUTE     
                     0003H     0008H                  *** GAP ***
             CODE    000BH     0003H     ABSOLUTE     
                     000EH     07F2H                  *** GAP ***
-            CODE    0800H     008CH     UNIT         ?C_C51STARTUP
-            CODE    088CH     0067H     UNIT         ?CO?MAIN
-            CODE    08F3H     004EH     UNIT         ?C_INITSEG
-            CODE    0941H     003DH     UNIT         ?PR?MAIN?MAIN
-            CODE    097EH     0034H     UNIT         ?PR?TIMER0_ROUTINE?MAIN
-            CODE    09B2H     0017H     UNIT         ?PR?TIMER0INIT?TIMER0
-            CODE    09C9H     0015H     UNIT         ?PR?_DELAY?DELAY
+            CODE    0800H     00AEH     UNIT         ?PR?PLAYTWOTIGER?MAIN
+            CODE    08AEH     008CH     UNIT         ?C_C51STARTUP
+            CODE    093AH     0078H     UNIT         ?CO?MAIN
+            CODE    09B2H     002BH     UNIT         ?PR?MAIN?MAIN
+            CODE    09DDH     0028H     UNIT         ?C?LIB_CODE
+            CODE    0A05H     0017H     UNIT         ?PR?TIMER0INIT?TIMER0
+            CODE    0A1CH     0015H     UNIT         ?PR?_DELAY?DELAY
+            CODE    0A31H     0011H     UNIT         ?PR?INTERRUPTTIMER0?MAIN
+            CODE    0A42H     000BH     UNIT         ?C_INITSEG
 
 
 
 OVERLAY MAP OF MODULE:   .\Objects\Project (?C_STARTUP)
 
 
-SEGMENT
-  +--> CALLED SEGMENT
----------------------
-?C_C51STARTUP
+SEGMENT                            DATA_GROUP 
+  +--> CALLED SEGMENT            START    LENGTH
+------------------------------------------------
+?C_C51STARTUP                    -----    -----
   +--> ?PR?MAIN?MAIN
+BL51 BANKED LINKER/LOCATER V6.22                                                      10/30/2023  20:58:24  PAGE 2
+
+
   +--> ?C_INITSEG
 
-?PR?MAIN?MAIN
-  +--> ?PR?TIMER0INIT?TIMER0
+?PR?MAIN?MAIN                    -----    -----
+  +--> ?PR?PLAYTWOTIGER?MAIN
+
+?PR?PLAYTWOTIGER?MAIN            000AH    0001H
   +--> ?CO?MAIN
-  +--> ?PR?_DELAY?DELAY
-
-
-BL51 BANKED LINKER/LOCATER V6.22                                                      10/30/2023  20:48:18  PAGE 2
 
 
 
@@ -69,8 +78,8 @@ SYMBOL TABLE OF MODULE:  .\Objects\Project (?C_STARTUP)
   ----------------------------------
 
   -------         MODULE        ?C_STARTUP
-  C:0800H         SEGMENT       ?C_C51STARTUP
-  I:0054H         SEGMENT       ?STACK
+  C:08AEH         SEGMENT       ?C_C51STARTUP
+  I:0021H         SEGMENT       ?STACK
   C:0000H         PUBLIC        ?C_STARTUP
   D:00E0H         SYMBOL        ACC
   D:00F0H         SYMBOL        B
@@ -79,7 +88,7 @@ SYMBOL TABLE OF MODULE:  .\Objects\Project (?C_STARTUP)
   N:0000H         SYMBOL        IBPSTACK
   N:0100H         SYMBOL        IBPSTACKTOP
   N:0080H         SYMBOL        IDATALEN
-  C:0803H         SYMBOL        IDATALOOP
+  C:08B1H         SYMBOL        IDATALOOP
   N:0000H         SYMBOL        PBPSTACK
   N:0100H         SYMBOL        PBPSTACKTOP
   N:0000H         SYMBOL        PDATALEN
@@ -88,127 +97,196 @@ SYMBOL TABLE OF MODULE:  .\Objects\Project (?C_STARTUP)
   N:0000H         SYMBOL        PPAGEENABLE
   D:00A0H         SYMBOL        PPAGE_SFR
   D:0081H         SYMBOL        SP
-  C:0800H         SYMBOL        STARTUP1
+  C:08AEH         SYMBOL        STARTUP1
   N:0000H         SYMBOL        XBPSTACK
   N:0000H         SYMBOL        XBPSTACKTOP
   N:0000H         SYMBOL        XDATALEN
   N:0000H         SYMBOL        XDATASTART
   C:0000H         LINE#         126
-  C:0800H         LINE#         133
-  C:0802H         LINE#         134
-  C:0803H         LINE#         135
-  C:0804H         LINE#         136
-  C:0806H         LINE#         185
-  C:0809H         LINE#         196
+  C:08AEH         LINE#         133
+  C:08B0H         LINE#         134
+  C:08B1H         LINE#         135
+  C:08B2H         LINE#         136
+  C:08B4H         LINE#         185
+  C:08B7H         LINE#         196
   -------         ENDMOD        ?C_STARTUP
 
   -------         MODULE        MAIN
   C:0000H         SYMBOL        _ICE_DUMMY_
-  C:097EH         PUBLIC        Timer0_Routine
-  D:00A0H         PUBLIC        P2
-  C:088CH         PUBLIC        Music
-  B:00A0H.5       PUBLIC        Buzzer
-  C:0941H         PUBLIC        main
+  D:0090H         PUBLIC        P1
+  D:00B0H         PUBLIC        P3
+  B:00A8H.7       PUBLIC        EA
+  C:0A31H         PUBLIC        InterruptTimer0
+  D:00A8H         PUBLIC        IE
+  D:00B8H         PUBLIC        IP
+BL51 BANKED LINKER/LOCATER V6.22                                                      10/30/2023  20:58:24  PAGE 3
+
+
+  D:0008H         PUBLIC        T0RH
+  C:093AH         PUBLIC        NoteFrequ
+  D:0009H         PUBLIC        T0RL
+  C:09B2H         PUBLIC        main
+  D:0098H         PUBLIC        SCON
+  D:0089H         PUBLIC        TMOD
+  D:0088H         PUBLIC        TCON
+  B:00A8H.1       PUBLIC        ET0
+  B:0090H.6       PUBLIC        BUZZ
   D:008CH         PUBLIC        TH0
   D:008AH         PUBLIC        TL0
+  C:0800H         PUBLIC        PlayTwoTiger
   B:0088H.4       PUBLIC        TR0
-  D:0008H         PUBLIC        MusicSelect
-  D:0009H         PUBLIC        FreqSelect
-  D:000AH         PUBLIC        FreqTable
+  D:00C8H         PUBLIC        T2CON
+  B:0020H.0       PUBLIC        enable
+  B:0020H.1       PUBLIC        tmrflag
+  C:0956H         PUBLIC        NoteReload
+  D:00D0H         PUBLIC        PSW
   -------         PROC          MAIN
-  C:0941H         LINE#         126
-  C:0941H         LINE#         127
-  C:0941H         LINE#         128
-BL51 BANKED LINKER/LOCATER V6.22                                                      10/30/2023  20:48:18  PAGE 3
-
-
-  C:0944H         LINE#         129
-  C:0944H         LINE#         130
-  C:0944H         LINE#         131
-  C:094EH         LINE#         132
-  C:094EH         LINE#         133
-  C:0950H         LINE#         134
-  C:0952H         LINE#         135
-  C:095FH         LINE#         136
-  C:0961H         LINE#         137
-  C:0963H         LINE#         138
-  C:096AH         LINE#         139
-  C:096CH         LINE#         140
-  C:096EH         LINE#         142
-  C:096EH         LINE#         143
-  C:0970H         LINE#         144
-  C:0977H         LINE#         145
-  C:0979H         LINE#         146
-  C:097CH         LINE#         147
-  C:097CH         LINE#         148
+  -------         DO            
+  D:0082H         SYMBOL        i
+  -------         ENDDO         
+  C:09B2H         LINE#         28
+  C:09B2H         LINE#         29
+  C:09B2H         LINE#         32
+  C:09B4H         LINE#         33
+  C:09B7H         LINE#         34
+  C:09BAH         LINE#         35
+  C:09BDH         LINE#         36
+  C:09BFH         LINE#         37
+  C:09C1H         LINE#         39
+  C:09C1H         LINE#         40
+  C:09C1H         LINE#         41
+  C:09C4H         LINE#         42
   -------         ENDPROC       MAIN
-  -------         PROC          TIMER0_ROUTINE
-  C:097EH         LINE#         151
-  C:0989H         LINE#         153
-  C:0997H         LINE#         154
-  C:0997H         LINE#         156
-  C:09A4H         LINE#         157
-  C:09A7H         LINE#         158
-  C:09A9H         LINE#         159
-  C:09A9H         LINE#         160
-  -------         ENDPROC       TIMER0_ROUTINE
+  -------         PROC          PLAYTWOTIGER
+  -------         DO            
+  D:0001H         SYMBOL        beat
+  D:000AH         SYMBOL        note
+  D:0002H         SYMBOL        time
+  D:0004H         SYMBOL        beatTime
+  D:0006H         SYMBOL        soundTime
+  C:0972H         SYMBOL        TwoTigerNote
+  C:0992H         SYMBOL        TwoTigerBeat
+  -------         ENDDO         
+  C:0800H         LINE#         46
+  C:0800H         LINE#         47
+  C:0800H         LINE#         50
+  C:0803H         LINE#         51
+  C:0805H         LINE#         52
+  C:0807H         LINE#         64
+  C:0811H         LINE#         65
+  C:0811H         LINE#         66
+  C:0814H         LINE#         67
+  C:0816H         LINE#         68
+  C:081AH         LINE#         69
+  C:081AH         LINE#         70
+BL51 BANKED LINKER/LOCATER V6.22                                                      10/30/2023  20:58:24  PAGE 4
+
+
+  C:0822H         LINE#         71
+  C:0831H         LINE#         72
+  C:0843H         LINE#         74
+  C:086FH         LINE#         76
+  C:0880H         LINE#         77
+  C:0882H         LINE#         78
+  C:0887H         LINE#         79
+  C:088AH         LINE#         81
+  C:088AH         LINE#         82
+  C:0891H         LINE#         83
+  C:0891H         LINE#         84
+  C:0894H         LINE#         85
+  C:0895H         LINE#         86
+  C:0898H         LINE#         88
+  C:0898H         LINE#         89
+  C:089DH         LINE#         90
+  C:08A8H         LINE#         91
+  C:08A8H         LINE#         92
+  C:08AAH         LINE#         93
+  C:08AAH         LINE#         94
+  C:08AAH         LINE#         95
+  C:08AAH         LINE#         96
+  C:08ADH         LINE#         97
+  -------         ENDPROC       PLAYTWOTIGER
+  -------         PROC          INTERRUPTTIMER0
+  C:0A31H         LINE#         99
+  C:0A31H         LINE#         101
+  C:0A34H         LINE#         102
+  C:0A37H         LINE#         103
+  C:0A39H         LINE#         104
+  C:0A3CH         LINE#         105
+  C:0A3FH         LINE#         107
+  C:0A41H         LINE#         108
+  -------         ENDPROC       INTERRUPTTIMER0
   -------         ENDMOD        MAIN
 
   -------         MODULE        DELAY
   C:0000H         SYMBOL        _ICE_DUMMY_
-  C:09C9H         PUBLIC        _Delay
+  C:0A1CH         PUBLIC        _Delay
   -------         PROC          _DELAY
   D:0006H         SYMBOL        xms
   -------         DO            
   D:0005H         SYMBOL        i
   D:0004H         SYMBOL        j
   -------         ENDDO         
-  C:09C9H         LINE#         1
-  C:09C9H         LINE#         2
-  C:09C9H         LINE#         4
-  C:09D3H         LINE#         5
-  C:09D5H         LINE#         6
-  C:09D7H         LINE#         8
-  C:09D7H         LINE#         9
-  C:09D9H         LINE#         10
-  C:09DBH         LINE#         11
-  C:09DDH         LINE#         12
+  C:0A1CH         LINE#         1
+  C:0A1CH         LINE#         2
+  C:0A1CH         LINE#         4
+  C:0A26H         LINE#         5
+  C:0A28H         LINE#         6
+  C:0A2AH         LINE#         8
+  C:0A2AH         LINE#         9
+  C:0A2CH         LINE#         10
+  C:0A2EH         LINE#         11
+  C:0A30H         LINE#         12
   -------         ENDPROC       _DELAY
   -------         ENDMOD        DELAY
+BL51 BANKED LINKER/LOCATER V6.22                                                      10/30/2023  20:58:24  PAGE 5
+
+
 
   -------         MODULE        TIMER0
   C:0000H         SYMBOL        _ICE_DUMMY_
   B:00A8H.7       PUBLIC        EA
-BL51 BANKED LINKER/LOCATER V6.22                                                      10/30/2023  20:48:18  PAGE 4
-
-
   D:0089H         PUBLIC        TMOD
   B:00A8H.1       PUBLIC        ET0
   B:0088H.5       PUBLIC        TF0
-  C:09B2H         PUBLIC        Timer0Init
+  C:0A05H         PUBLIC        Timer0Init
   D:008CH         PUBLIC        TH0
   D:008AH         PUBLIC        TL0
   B:00B8H.1       PUBLIC        PT0
   B:0088H.4       PUBLIC        TR0
   -------         PROC          TIMER0INIT
-  C:09B2H         LINE#         10
-  C:09B2H         LINE#         11
-  C:09B2H         LINE#         13
-  C:09B5H         LINE#         14
-  C:09B8H         LINE#         15
-  C:09BBH         LINE#         16
-  C:09BEH         LINE#         17
-  C:09C0H         LINE#         18
-  C:09C2H         LINE#         19
-  C:09C4H         LINE#         20
-  C:09C6H         LINE#         21
-  C:09C8H         LINE#         22
+  C:0A05H         LINE#         10
+  C:0A05H         LINE#         11
+  C:0A05H         LINE#         13
+  C:0A08H         LINE#         14
+  C:0A0BH         LINE#         15
+  C:0A0EH         LINE#         16
+  C:0A11H         LINE#         17
+  C:0A13H         LINE#         18
+  C:0A15H         LINE#         19
+  C:0A17H         LINE#         20
+  C:0A19H         LINE#         21
+  C:0A1BH         LINE#         22
   -------         ENDPROC       TIMER0INIT
   -------         ENDMOD        TIMER0
 
+  -------         MODULE        ?C?IMUL
+  C:09DDH         PUBLIC        ?C?IMUL
+  -------         ENDMOD        ?C?IMUL
+
+  -------         MODULE        ?C?SLCMP
+  C:09EFH         PUBLIC        ?C?SLCMP
+  -------         ENDMOD        ?C?SLCMP
+
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?_DELAY?DELAY
+
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?TIMER0INIT?TIMER0
+
 ******************************************************************************
-* RESTRICTED VERSION WITH 0800H BYTE CODE SIZE LIMIT; USED: 0163H BYTE (17%) *
+* RESTRICTED VERSION WITH 0800H BYTE CODE SIZE LIMIT; USED: 01AAH BYTE (20%) *
 ******************************************************************************
 
-Program Size: data=85.0 xdata=0 code=484
-LINK/LOCATE RUN COMPLETE.  0 WARNING(S),  0 ERROR(S)
+Program Size: data=12.2 xdata=0 code=595
+LINK/LOCATE RUN COMPLETE.  2 WARNING(S),  0 ERROR(S)
