@@ -1,4 +1,4 @@
-C51 COMPILER V9.54   MAIN                                                                  10/29/2023 21:42:37 PAGE 1   
+C51 COMPILER V9.54   MAIN                                                                  10/30/2023 20:13:24 PAGE 1   
 
 
 C51 COMPILER V9.54, COMPILATION OF MODULE MAIN
@@ -17,293 +17,53 @@ line level    source
    7          
    8          sbit Buzzer=P2^5;
    9          
-  10          //????,?????????(ms)
-  11          #define SPEED 500
-  12          
-  13          //????????,P:???,L:??,M:??,H:??,???:?????#
-  14          #define P 0
-  15          #define L1  1
-  16          #define L1_ 2
-  17          #define L2  3
-  18          #define L2_ 4
-  19          #define L3  5
-  20          #define L4  6
-  21          #define L4_ 7
-  22          #define L5  8
-  23          #define L5_ 9
-  24          #define L6  10
-  25          #define L6_ 11
-  26          #define L7  12
-  27          #define M1  13
-  28          #define M1_ 14
-  29          #define M2  15
-  30          #define M2_ 16
-  31          #define M3  17
-  32          #define M4  18
-  33          #define M4_ 19
-  34          #define M5  20
-  35          #define M5_ 21
-  36          #define M6  22
-  37          #define M6_ 23
-  38          #define M7  24
-  39          #define H1  25
-  40          #define H1_ 26
-  41          #define H2  27
-  42          #define H2_ 28
-  43          #define H3  29
-  44          #define H4  30
-  45          #define H4_ 31
-  46          #define H5  32
-  47          #define H5_ 33
-  48          #define H6  34
-  49          #define H6_ 35
-  50          #define H7  36
-  51          
-  52          //????????
-  53          unsigned int FreqTable[]={
-  54            0,
-C51 COMPILER V9.54   MAIN                                                                  10/29/2023 21:42:37 PAGE 2   
-
-  55            63628,63731,63835,63928,64021,64103,64185,64260,64331,64400,64463,64528,
-  56            64580,64633,64684,64732,64777,64820,64860,64898,64934,64968,65000,65030,
-  57            65058,65085,65110,65134,65157,65178,65198,65217,65235,65252,65268,65283,
-  58          };
-  59          
-  60          //??
-  61          unsigned char code Music[]={
-  62            //??,??,
-  63            
-  64            //1
-  65            P,  4,
-  66            P,  4,
-  67            P,  4,
-  68            M6, 2,
-  69            M7, 2,
-  70            
-  71            H1, 4+2,
-  72            M7, 2,
-  73            H1, 4,
-  74            H3, 4,
-  75            
-  76            M7, 4+4+4,
-  77            M3, 2,
-  78            M3, 2,
-  79            
-  80            //2
-  81            M6, 4+2,
-  82            M5, 2,
-  83            M6, 4,
-  84            H1, 4,
-  85            
-  86            M5, 4+4+4,
-  87            M3, 4,
-  88            
-  89            M4, 4+2,
-  90            M3, 2,
-  91            M4, 4,
-  92            H1, 4,
-  93            
-  94            //3
-  95            M3, 4+4,
-  96            P,  2,
-  97            H1, 2,
-  98            H1, 2,
-  99            H1, 2,
- 100            
- 101            M7, 4+2,
- 102            M4_,2,
- 103            M4_,4,
- 104            M7, 4,
- 105            
- 106            M7, 8,
- 107            P,  4,
- 108            M6, 2,
- 109            M7, 2,
- 110            
- 111            //4
- 112            H1, 4+2,
- 113            M7, 2,
- 114            H1, 4,
- 115            H3, 4,
- 116            
-C51 COMPILER V9.54   MAIN                                                                  10/29/2023 21:42:37 PAGE 3   
-
- 117            M7, 4+4+4,
- 118            M3, 2,
- 119            M3, 2,
- 120            
- 121            M6, 4+2,
- 122            M5, 2,
- 123            M6, 4,
- 124            H1, 4,
- 125            
- 126            //5
- 127            M5, 4+4+4,
- 128            M2, 2,
- 129            M3, 2,
- 130            
- 131            M4, 4,
- 132            H1, 2,
- 133            M7, 2+2,
- 134            H1, 2+4,
- 135            
- 136            H2, 2,
- 137            H2, 2,
- 138            H3, 2,
- 139            H1, 2+4+4,
- 140            
- 141            //6
- 142            H1, 2,
- 143            M7, 2,
- 144            M6, 2,
- 145            M6, 2,
- 146            M7, 4,
- 147            M5_,4,
- 148            
- 149            
- 150            M6, 4+4+4,
- 151            H1, 2,
- 152            H2, 2,
- 153            
- 154            H3, 4+2,
- 155            H2, 2,
- 156            H3, 4,
- 157            H5, 4,
- 158            
- 159            //7
- 160            H2, 4+4+4,
- 161            M5, 2,
- 162            M5, 2,
- 163            
- 164            H1, 4+2,
- 165            M7, 2,
- 166            H1, 4,
- 167            H3, 4,
- 168            
- 169            H3, 4+4+4+4,
- 170            
- 171            //8
- 172            M6, 2,
- 173            M7, 2,
- 174            H1, 4,
- 175            M7, 4,
- 176            H2, 2,
- 177            H2, 2,
- 178            
-C51 COMPILER V9.54   MAIN                                                                  10/29/2023 21:42:37 PAGE 4   
-
- 179            H1, 4+2,
- 180            M5, 2+4+4,
- 181            
- 182            H4, 4,
- 183            H3, 4,
- 184            H3, 4,
- 185            H1, 4,
- 186            
- 187            //9
- 188            H3, 4+4+4,
- 189            H3, 4,
- 190            
- 191            H6, 4+4,
- 192            H5, 4,
- 193            H5, 4,
- 194            
- 195            H3, 2,
- 196            H2, 2,
- 197            H1, 4+4,
- 198            P,  2,
- 199            H1, 2,
- 200            
- 201            //10
- 202            H2, 4,
- 203            H1, 2,
- 204            H2, 2,
- 205            H2, 4,
- 206            H5, 4,
- 207            
- 208            H3, 4+4+4,
- 209            H3, 4,
- 210            
- 211            H6, 4+4,
- 212            H5, 4+4,
- 213            
- 214            //11
- 215            H3, 2,
- 216            H2, 2,
- 217            H1, 4+4,
- 218            P,  2,
- 219            H1, 2,
- 220            
- 221            H2, 4,
- 222            H1, 2,
- 223            H2, 2+4,
- 224            M7, 4,
- 225            
- 226            M6, 4+4+4,
- 227            P,  4,
- 228            
- 229            0xFF  //????
- 230          };
- 231          
- 232          unsigned char FreqSelect,MusicSelect;
- 233          
- 234          void main()
- 235          {
- 236   1        Timer0Init();
- 237   1        while(1)
- 238   1        {
- 239   2          if(Music[MusicSelect]!=0xFF)  //?????????
- 240   2          {
-C51 COMPILER V9.54   MAIN                                                                  10/29/2023 21:42:37 PAGE 5   
-
- 241   3            FreqSelect=Music[MusicSelect];  //?????????
- 242   3            MusicSelect++;
- 243   3            Delay(SPEED/4*Music[MusicSelect]);  //?????????
- 244   3            MusicSelect++;
- 245   3            TR0=0;
- 246   3            Delay(5); //???????
- 247   3            TR0=1;
- 248   3          }
- 249   2          else  //????????
- 250   2          {
- 251   3            TR0=0;
- 252   3            while(1);
- 253   3          }
- 254   2        }
- 255   1      }
- 256          
- 257          void Timer0_Routine() interrupt 1
- 258          {
- 259   1        if(FreqTable[FreqSelect]) //???????
- 260   1        {
- 261   2          /*???????????????*/
- 262   2          TL0 = FreqTable[FreqSelect]%256;    //??????
- 263   2          TH0 = FreqTable[FreqSelect]/256;    //??????
- 264   2          Buzzer=!Buzzer; //?????IO?
- 265   2        }
- 266   1      }
- 267          
- 268          //sbit Buzzer = P1^5;
- 269          //void main(){
- 270          //  Timer0Init();
- 271          //  while(1){
- 272          //  }
- 273          //}
- 274          //  
- 275          //void Timer0_Routine() interrupt 1
- 276          //{
- 277          //  static unsigned int T0Count;
- 278          //  TL0 = 0xCD;   //???????
- 279          //  TH0 = 0xD4; 
- 280          //  Buzzer=!Buzzer;}
+  10          unsigned int FreqTable[]={
+  11            0,
+  12            63628,63731,63835,63928,64021,64103,64185,64260,64331,64400,64463,64528,
+  13            64580,64633,64684,64732,64777,64820,64860,64898,64934,64968,65000,65030,
+  14            65058,65085,65110,65134,65157,65178,65198,65217,65235,65252,65268,65283,
+  15          };
+  16          
+  17          unsigned char FreqSelect;
+  18          
+  19          void main(){
+  20   1        Timer0Init();
+  21   1        while(1){
+  22   2          FreqSelect++;
+  23   2          Delay(500);
+  24   2        }
+  25   1      }
+  26          
+  27          void Timer0_Routine() interrupt 1
+  28          {
+  29   1        TL0 = FreqTable[FreqSelect]%256;
+  30   1        TH0 = FreqTable[FreqSelect]/256;
+  31   1        Buzzer = !Buzzer;
+  32   1      }
+  33          
+  34          //sbit Buzzer = P1^5;
+  35          //void main(){
+  36          //  Timer0Init();
+  37          //  while(1){
+  38          //  }
+  39          //}
+  40          //  
+  41          //void Timer0_Routine() interrupt 1
+  42          //{
+  43          //  static unsigned int T0Count;
+  44          //  TL0 = 0xCD;   //???????
+  45          //  TH0 = 0xD4; 
+  46          //  Buzzer=!Buzzer;}
 
 
 MODULE INFORMATION:   STATIC OVERLAYABLE
-   CODE SIZE        =    101    ----
-   CONSTANT SIZE    =    241    ----
+   CODE SIZE        =     52    ----
+   CONSTANT SIZE    =   ----    ----
    XDATA SIZE       =   ----    ----
    PDATA SIZE       =   ----    ----
-   DATA SIZE        =     76    ----
+   DATA SIZE        =     75    ----
+C51 COMPILER V9.54   MAIN                                                                  10/30/2023 20:13:24 PAGE 2   
+
    IDATA SIZE       =   ----    ----
    BIT SIZE         =   ----    ----
 END OF MODULE INFORMATION.
