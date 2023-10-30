@@ -1,4 +1,4 @@
-C51 COMPILER V9.54   TIMER0                                                                10/30/2023 12:31:06 PAGE 1   
+C51 COMPILER V9.54   TIMER0                                                                10/30/2023 20:37:26 PAGE 1   
 
 
 C51 COMPILER V9.54, COMPILATION OF MODULE TIMER0
@@ -62,7 +62,7 @@ line level    source
   51            static unsigned int T0Count;
   52            TL0 = 0xCD;   //设置定时初始值
   53            TH0 = 0xD4; 
-C51 COMPILER V9.54   TIMER0                                                                10/30/2023 12:31:06 PAGE 2   
+C51 COMPILER V9.54   TIMER0                                                                10/30/2023 20:37:26 PAGE 2   
 
   54            T0Count++;
   55            if(T0Count >= 1000){

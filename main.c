@@ -31,6 +31,7 @@ void Timer0_Routine() interrupt 1
 	Buzzer = !Buzzer;
 }
 
+
 //sbit Buzzer = P1^5;
 //void main(){
 //	Timer0Init();
